@@ -1,6 +1,7 @@
 #include "menu.h"
 #include "menus/main_menu.h"
 #include "menus/inventory_menu.h"
+#include "menus/amount_menu.h"
 #include "menus/settings_menu.h"
 
 typedef void (*menu_render_t)();
@@ -9,6 +10,7 @@ menu_render_t l_menuDrawList[MENU_NUM] = {
     MainMenu::draw,
     InventoryMenu::draw,
     SettingsMenu::draw,
+    AmountMenu::draw,
 };
 
 menu_render_t l_currentMenu = nullptr;
