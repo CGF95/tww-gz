@@ -14,6 +14,7 @@ Line lines[LINE_NUM] = {
 
 void InventoryMenu::draw() {
     cursor.move(0, LINE_NUM);
+    
 
     if (GZ_getButtonTrig(GZPad::B)) {
         GZ_setMenu(GZ_MAIN_MENU);
@@ -23,7 +24,7 @@ void InventoryMenu::draw() {
     if (GZ_getButtonTrig(GZPad::A)) {
         switch (cursor.y) {
         case AMOUNT_INDEX:
-            GZ_setMenu(GZ_AMOUNT_MENU);
+            //GZ_setMenu(GZ_AMOUNT_MENU);
             return;
         case PAUSE_INDEX:
             //GZ_setMenu(GZ_PAUSE_MENU);
