@@ -4,7 +4,7 @@
 #include "utils/cursor.h"
 #include "utils/lines.h"
 
-#define MENU_NUM 4
+#define MENU_NUM 5
 
 enum {
     /* Main Menus */

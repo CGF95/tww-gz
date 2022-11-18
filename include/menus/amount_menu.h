@@ -1,10 +1,12 @@
 #include "menu.h"
 
 enum AmountMenuIndex {
-    BOMB_BAG_INDEX,
-    QUIVER_INDEX,
+    HEALTH_INDEX,
+    BOMB_INDEX,
+    ARROW_INDEX,
     RUPEE_INDEX,
     MAGIC_INDEX,
+    HEART_PIECE_INDEX,
 };
 
 class AmountMenu : public Menu {
