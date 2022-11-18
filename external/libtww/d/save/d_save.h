@@ -289,8 +289,10 @@ public:
     u16& getMaxLife() { return mMaxLife; }
     u16& getLife() { return mLife; }
     u16& getRupee() { return mRupee; }
+    u8& getMagic() { return mMagic; }
+    u8& getMaxMagic() { return mMaxMagic; }
     u8 getSelectEquip(int item) const { return mSelectEquip[item]; }
-
+    
     void setMagic(u8 magic) { mMagic = magic; }
     void setMaxMagic(u8 max) { mMaxMagic = max; }
     void setRupee(u16 rupees) { mRupee = rupees; }
@@ -346,6 +348,10 @@ class dSv_player_item_record_c {
 public:
     void setArrowNum(u8 amount) { mArrowNum = amount; }
     u8 getArrowNum() { return mArrowNum; }
+    void setBombNum(u8 amount) { mBombNum = amount; }
+    u8 getBombNum() { return mBombNum; }
+    void setBottleNum(u8 amount) { mBottleNum = amount; }
+    u8 getBottleNum() { return mBottleNum; }
 
     /* 0x0 */ u16 mTimer;
     /* 0x2 */ u8 field_0x2;
