@@ -48,10 +48,10 @@ void game_loop() {
     // check and load gz settings card if found
     GZ_loadGZSave(l_loadCard);
 
-    // Make title screen / file select endless night
-    if (!tww_strcmp(g_dComIfG_gameInfo.play.mStartStage.mStage, "Name") || !tww_strcmp(g_dComIfG_gameInfo.play.mStartStage.mStage, "sea_T")) {
-        g_dComIfG_gameInfo.info.getPlayer().getPlayerStatusB().mTime = 1.0f;
-        g_env_light.mCurTime = 1.0f;
+    // Make title screen endless night
+    if (!tww_strcmp(g_dComIfG_gameInfo.play.mStartStage.mStage, "sea_T")) {
+        g_dComIfG_gameInfo.info.getPlayer().getPlayerStatusB().mTime = 0.0f;
+        g_env_light.mCurTime = 0.0f;
         g_env_light.mColPatCurr = 1;
         g_env_light.mbThunderActive = 1;
         g_env_light.mRainCount = 250;
@@ -85,11 +85,11 @@ void GZ_displayLinkInfo() {
         tww_sprintf(link_y, "y-pos: %.4f", playerAc->mCurrent.mPosition.y);
         tww_sprintf(link_z, "z-pos: %.4f", playerAc->mCurrent.mPosition.z);
 
-        Font::GZ_drawStr(link_angle, 450.f, 200.f, 0xFFFFFFFF, g_dropShadows);
-        Font::GZ_drawStr(link_speed, 450.f, 220.f, 0xFFFFFFFF, g_dropShadows);
-        Font::GZ_drawStr(link_x, 450.f, 240.f, 0xFFFFFFFF, g_dropShadows);
-        Font::GZ_drawStr(link_y, 450.f, 260.f, 0xFFFFFFFF, g_dropShadows);
-        Font::GZ_drawStr(link_z, 450.f, 280.f, 0xFFFFFFFF, g_dropShadows);
+        Font::GZ_drawStr(link_angle, 450.f, 200.f, 0xFFFFFFFF, g_dropShadows, 16.0f);
+        Font::GZ_drawStr(link_speed, 450.f, 220.f, 0xFFFFFFFF, g_dropShadows, 16.0f);
+        Font::GZ_drawStr(link_x, 450.f, 240.f, 0xFFFFFFFF, g_dropShadows, 16.0f);
+        Font::GZ_drawStr(link_y, 450.f, 260.f, 0xFFFFFFFF, g_dropShadows, 16.0f);
+        Font::GZ_drawStr(link_z, 450.f, 280.f, 0xFFFFFFFF, g_dropShadows, 16.0f);
     }
 }
 
