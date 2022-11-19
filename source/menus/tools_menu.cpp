@@ -25,8 +25,8 @@ Line lines[LINE_NUM] = {
 };
 
 void ToolsMenu::draw(){
- cursor.setMode(Cursor::MODE_LIST);
- cursor.move(0, LINE_NUM);
+    cursor.setMode(Cursor::MODE_LIST);
+    cursor.move(0, LINE_NUM);
 
     if (GZ_getButtonTrig(GZPad::B)) {
         GZ_setMenu(GZ_MAIN_MENU);
@@ -60,7 +60,7 @@ void ToolsMenu::draw(){
         }
     }
 
- GZ_drawMenuLines(lines, cursor.y, LINE_NUM);
+    GZ_drawMenuLines(lines, cursor.y, LINE_NUM);
 }
 
 
