@@ -66,7 +66,6 @@ void game_loop() {
     }
     
     GZ_setCursorColor();
-   
 }
 
 void GZ_displayLinkInfo() {
