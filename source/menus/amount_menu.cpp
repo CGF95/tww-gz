@@ -8,13 +8,6 @@
 
 Cursor AmountMenu::cursor;
 
-u8 g_healthNum;
-u8 g_bombNum = 0;
-u8 g_arrowNum = 0;
-u8 g_magicNum = 0;
-u16 g_rupeeNum = 0;
-u8 g_heartNum = 0;
-
 Line lines[LINE_NUM] = {
     {"health:", HEALTH_INDEX, "Modifies the current health by quarter"},
     {"bombs:", BOMB_INDEX, "Current bomb count"},
@@ -27,12 +20,12 @@ Line lines[LINE_NUM] = {
 void AmountMenu::draw() {
     cursor.setMode(Cursor::MODE_LIST);
 
-    g_healthNum = g_dComIfG_gameInfo.info.getSavedata().getPlayer().getPlayerStatusA().getLife();
-    g_bombNum = g_dComIfG_gameInfo.info.getSavedata().getPlayer().getItemRecord().getBombNum();
-    g_arrowNum = g_dComIfG_gameInfo.info.getSavedata().getPlayer().getItemRecord().getArrowNum();
-    g_rupeeNum = g_dComIfG_gameInfo.info.getSavedata().getPlayer().getPlayerStatusA().getRupee();
-    g_magicNum = g_dComIfG_gameInfo.info.getSavedata().getPlayer().getPlayerStatusA().getMagic();
-    g_heartNum = g_dComIfG_gameInfo.info.getSavedata().getPlayer().getPlayerStatusA().getMaxLife();
+    u8 g_healthNum = g_dComIfG_gameInfo.info.getSavedata().getPlayer().getPlayerStatusA().getLife();
+    u8 g_bombNum = g_dComIfG_gameInfo.info.getSavedata().getPlayer().getItemRecord().getBombNum();
+    u8 g_arrowNum = g_dComIfG_gameInfo.info.getSavedata().getPlayer().getItemRecord().getArrowNum();
+    u16 g_rupeeNum = g_dComIfG_gameInfo.info.getSavedata().getPlayer().getPlayerStatusA().getRupee();
+    u8 g_magicNum = g_dComIfG_gameInfo.info.getSavedata().getPlayer().getPlayerStatusA().getMagic();
+    u8 g_heartNum = g_dComIfG_gameInfo.info.getSavedata().getPlayer().getPlayerStatusA().getMaxLife();
 
     if (GZ_getButtonTrig(GZPad::B)) {
         GZ_setMenu(GZ_INVENTORY_MENU);
@@ -40,16 +33,21 @@ void AmountMenu::draw() {
     }
     
     /* 
-     * Make it so if it's more than the maximum or if
+     * Made it so if it's more than the maximum or if
      * the player sets it to less than 0, wrap to maximum
      * or back to 0 in some cases
     */
     switch (cursor.y) {
-    case HEALTH_INDEX: {
+    case HEALTH_INDEX:
         Cursor::moveList(g_healthNum);
+        if (GZ_getButtonTrig(GZPad::A)) {
+            g_healthNum = 1; //Quarter heart health
+        }
+        if (GZ_getButtonTrig(GZPad::R)) {
+            g_healthNum = (g_heartNum / 4) * 4; //Maximum available health
+        }
         g_dComIfG_gameInfo.info.getSavedata().getPlayer().getPlayerStatusA().setLife(g_healthNum);
         break;
-    }
     case BOMB_INDEX:
         Cursor::moveList(g_bombNum);
         if (g_bombNum > 99) {
