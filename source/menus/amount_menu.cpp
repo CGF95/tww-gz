@@ -46,6 +46,9 @@ void AmountMenu::draw() {
         if (GZ_getButtonTrig(GZPad::R)) {
             g_healthNum = (g_heartNum / 4) * 4; //Maximum available health
         }
+        if (g_healthNum < 1) {
+            g_healthNum = 1; //Don't allow the player to go under 1 quarter heart
+        }
         g_dComIfG_gameInfo.info.getSavedata().getPlayer().getPlayerStatusA().setLife(g_healthNum);
         break;
     case BOMB_INDEX:
