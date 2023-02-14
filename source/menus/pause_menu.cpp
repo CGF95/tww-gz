@@ -48,10 +48,11 @@ void PauseMenu::draw() {
         GZ_setMenu(GZ_INVENTORY_MENU);
         return;
     }
-
+    /*
     if (GZ_getButtonTrig(GZPad::A)) {
         switch (cursor.y) {
             return;
         }
     }
+    */
 }
