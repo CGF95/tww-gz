@@ -200,13 +200,13 @@ void ToolsMenu::frameAdvance() {
     g_mDoCPd_cpadInfo[0].mPressedButtonFlags = g_mDoCPd_cpadInfo[0].mButtonFlags;
 
     if (GZ_getButtonTrig(GZPad::DPAD_DOWN)) {
-        sPauseTimer = 0;
+        nextPauseTimer = 0;
     }
 }
 
 void GZ_drawFrameTex(Texture* pauseTex, Texture* playTex) {
     if (g_framePaused) {
-        if (sPauseTimer == 1) {
+        if (nextPauseTimer == 1) {
             Draw::drawRect(0xFFFFFFFF, {550.0f, 5.0f}, {32, 32}, &pauseTex->_texObj);
         } else {
             Draw::drawRect(0xFFFFFFFF, {550.0f, 5.0f}, {32, 32}, &playTex->_texObj);
