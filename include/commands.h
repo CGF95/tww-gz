@@ -2,9 +2,10 @@
 #include "libtww/dolphin/gctypes.h"
 #include "libtww/SSystem/SComponent/c_xyz.h"
 
-#define COMMANDS_AMNT 13
+#define COMMANDS_AMNT 14
 
 extern bool g_commandStates[COMMANDS_AMNT];
+extern bool g_framePaused;
 
 enum Commands {
     CMD_STORE_POSITION,
@@ -20,6 +21,7 @@ enum Commands {
     CMD_AREA_RELOAD,
     CMD_REFILL_HEALTH,
     CMD_REFILL_MAGIC,
+    CMD_FRAME_PAUSE,
 };
 
 struct Command {
@@ -31,3 +33,6 @@ struct Command {
 void GZCmd_processInputs();
 void GZCmd_enable(int idx);
 void GZCmd_disable(int idx);
+
+// temporarily put this here until libtww gets updated
+#define nextPauseTimer (*(u8*)(tww_dScnPly_nextPauseTimer_addr))

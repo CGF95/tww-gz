@@ -27,12 +27,13 @@
 // TODO add other region intro skip data
 
 Cursor ToolsMenu::cursor;
+bool g_framePaused = false;
 
 GZTool g_tools[TOOL_AMNT] = {
-    {DEBUG_INDEX, false},        {TIME_DISP_INDEX, false},    {TELEPORT_INDEX, false},    
-    {AREA_RELOAD_INDEX, false},  {MAP_SELECT_INDEX, false},   {ZH_INDEX, false},          
-    {INPUT_VIEWER_INDEX, false}, {ESS_CHECKER_INDEX, false},  {DEADZONE_CHECKER_INDEX, false},  
-    {INTRO_SKIP_INDEX, false}, //{DISABLE_SVCHECK_INDEX, false},
+    {FRAME_ADVANCE_INDEX, false},       {DEBUG_INDEX, false},        {TIME_DISP_INDEX, false},    
+    {TELEPORT_INDEX, false},            {AREA_RELOAD_INDEX, false},  {MAP_SELECT_INDEX, false},   
+    {ZH_INDEX, false},                  {INPUT_VIEWER_INDEX, false}, {ESS_CHECKER_INDEX, false},  
+    {DEADZONE_CHECKER_INDEX, false},    {INTRO_SKIP_INDEX, false}, //{DISABLE_SVCHECK_INDEX, false},
 };
 
 Line lines[LINE_NUM] = {
@@ -40,11 +41,11 @@ Line lines[LINE_NUM] = {
         &g_tools[DEBUG_INDEX].active},
     {"display time info", TIME_DISP_INDEX, "Display current day, time and moon phase", true,
         &g_tools[TIME_DISP_INDEX].active},
-    {"teleport", TELEPORT_INDEX, "R+D-pad up to save position. R+D-pad down to load", true,
+    {"teleport", TELEPORT_INDEX, "R+D-pad up to save position. R + D-Pad down to load", true,
         &g_tools[TELEPORT_INDEX].active},
     {"area reload", AREA_RELOAD_INDEX, "Reload the current room by pressing L + R + A + Start",
         true, &g_tools[AREA_RELOAD_INDEX].active},
-    {"map select", MAP_SELECT_INDEX, "Load map select by holding D-pad down + Y + Z",
+    {"map select", MAP_SELECT_INDEX, "Load map select by holding D-Pad down + Y + Z",
         true, &g_tools[MAP_SELECT_INDEX].active},
     {"zombie hover info", ZH_INDEX, "Display A and B button presses per second", true,
         &g_tools[ZH_INDEX].active},
@@ -58,6 +59,8 @@ Line lines[LINE_NUM] = {
     //    &g_tools[DISABLE_SVCHECK_INDEX].active},
     {"intro skip", INTRO_SKIP_INDEX, "Skips the intro cutscenes when starting a new file", true,
         &g_tools[INTRO_SKIP_INDEX].active},
+    {"frame advance", FRAME_ADVANCE_INDEX, "Use R + D-Pad down to frame advance", true, 
+        &g_tools[FRAME_ADVANCE_INDEX].active},
 };
 
 void ToolsMenu::displayTimeInfo() {
@@ -100,6 +103,9 @@ void ToolsMenu::draw() {
 
         if (g_tools[cursor.y].active) {
             switch (cursor.y) {
+            case FRAME_ADVANCE_INDEX:
+                GZCmd_enable(Commands::CMD_FRAME_PAUSE);
+                break;
             case TELEPORT_INDEX:
                 GZCmd_enable(Commands::CMD_STORE_POSITION);
                 GZCmd_enable(Commands::CMD_LOAD_POSITION);
@@ -187,4 +193,23 @@ void ToolsMenu::displayZombieHoverInfo() {
 
     Font::GZ_drawStr(a_presses_str, 450.f, 400.f, zombieHoverColor(numAPressesPerWindow), g_dropShadows);
     Font::GZ_drawStr(b_presses_str, 450.f, 420.f, zombieHoverColor(numBPressesPerWindow), g_dropShadows);
+}
+
+void ToolsMenu::frameAdvance() {
+    nextPauseTimer = 1;
+    g_mDoCPd_cpadInfo[0].mPressedButtonFlags = g_mDoCPd_cpadInfo[0].mButtonFlags;
+
+    if (GZ_getButtonTrig(GZPad::DPAD_DOWN)) {
+        sPauseTimer = 0;
+    }
+}
+
+void GZ_drawFrameTex(Texture* pauseTex, Texture* playTex) {
+    if (g_framePaused) {
+        if (sPauseTimer == 1) {
+            Draw::drawRect(0xFFFFFFFF, {550.0f, 5.0f}, {32, 32}, &pauseTex->_texObj);
+        } else {
+            Draw::drawRect(0xFFFFFFFF, {550.0f, 5.0f}, {32, 32}, &playTex->_texObj);
+        }
+    }
 }

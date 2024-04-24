@@ -176,6 +176,7 @@
 
 /* d_s_play */
 #define tww_dScnPly_Draw_addr 0x8023218c
+#define tww_dScnPly_nextPauseTimer_addr 0x803ea751
 
 /* d_a_player */
 #define l_debug_keep_pos_addr 0x803d78fc

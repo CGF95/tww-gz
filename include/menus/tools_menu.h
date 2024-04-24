@@ -21,6 +21,7 @@ enum ToolsMenuIndex {
     DEADZONE_CHECKER_INDEX,
     //DISABLE_SVCHECK_INDEX,
     INTRO_SKIP_INDEX,
+    FRAME_ADVANCE_INDEX,
 };
 
 struct GZTool {
@@ -28,9 +29,11 @@ struct GZTool {
     bool active;
 };
 
-#define TOOL_AMNT 10
+#define TOOL_AMNT 11
 
 extern GZTool g_tools[TOOL_AMNT];
+
+void GZ_drawFrameTex(Texture* pauseTex, Texture* playTex);
 
 class ToolsMenu : public Menu {
 public:
@@ -40,6 +43,7 @@ public:
     static void displayLinkInfo();
     static void displayTimeInfo();
     static void displayZombieHoverInfo();
+    static void frameAdvance();
 
     static Cursor cursor;
 };

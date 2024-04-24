@@ -77,7 +77,11 @@ void game_loop() {
     if (l_fopScnRq_IsUsingOfOverlap) {
         GZ_clearMenu();
     }
-
+    
+    if (g_framePaused && g_tools[FRAME_ADVANCE_INDEX].active) {
+        ToolsMenu::frameAdvance();
+    }
+    
     GZ_setCursorColor();
 }
 
@@ -117,6 +121,9 @@ void displaySplash() {
     }
 }
 
+Texture l_framePauseTex;
+Texture l_framePlayTex;
+
 void draw() {
     // Setup rendering so we can display things on screen
     setupRendering();
@@ -140,6 +147,25 @@ void draw() {
 
     if (g_tools[TIME_DISP_INDEX].active) {
         ToolsMenu::displayTimeInfo();
+    }
+    
+    if (g_tools[FRAME_ADVANCE_INDEX].active) {
+        if (l_framePauseTex.loadCode == TexCode::TEX_UNLOADED) {
+            load_texture("twwgz/tex/framePause.tex", &l_framePauseTex);
+        }
+
+        if (l_framePlayTex.loadCode == TexCode::TEX_UNLOADED) {
+            load_texture("twwgz/tex/framePlay.tex", &l_framePlayTex);
+        }
+            GZ_drawFrameTex(&l_framePauseTex, &l_framePlayTex); 
+    } else {
+        if (l_framePauseTex.loadCode == TexCode::TEX_OK) {
+            free_texture(&l_framePauseTex);
+        }
+    
+        if (l_framePlayTex.loadCode == TexCode::TEX_OK) {
+            free_texture(&l_framePlayTex);
+        }
     }
 
     GZ_drawMenu();

@@ -20,11 +20,11 @@ bool GZCmd_checkTrig(int combo) {
     return false;
 }
 
-/* void GZCmd_pauseFrame() {
-    if (GZCmd_checkTrig(FRAME_PAUSE_BUTTONS)) {
+void GZCmd_pauseFrame() {
+    if (GZCmd_checkTrig(CButton::DPAD_DOWN)) {
         g_framePaused = !g_framePaused;
     }
-} */
+}
 
 void GZCmd_storePosition() {
     if (dComIfGp_getPlayer(0)) {
@@ -140,6 +140,7 @@ static Command sCommands[COMMANDS_AMNT] = {
     {g_commandStates[CMD_AREA_RELOAD], (CButton::L | CButton::R | CButton::A | CButton::START), GZCmd_areaReload},
     {g_commandStates[CMD_REFILL_HEALTH], (CButton::R | CButton::DPAD_RIGHT), GZCmd_full_health},
     {g_commandStates[CMD_REFILL_MAGIC], (CButton::L | CButton::DPAD_UP), GZCmd_full_magic},
+    {g_commandStates[CMD_FRAME_PAUSE], (CButton:: R | CButton::DPAD_DOWN), GZCmd_pauseFrame},
 };
 
 void GZCmd_processInputs() {
